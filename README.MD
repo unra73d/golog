@@ -1,9 +1,9 @@
 # Go Simple Logger
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/unra73d/go-log)](https://goreportcard.com/report/github.com/unra73d/go-log)
-[![GoDoc](https://godoc.org/github.com/unra73d/go-log?status.svg)](https://godoc.org/github.com/unra73d/go-log)
+[![Go Report Card](https://goreportcard.com/badge/github.com/unra73d/golog)](https://goreportcard.com/report/github.com/unra73d/golog)
+[![GoDoc](https://godoc.org/github.com/unra73d/golog?status.svg)](https://godoc.org/github.com/unra73d/golog)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-1.0.0-blue)](https://github.com/unra73d/go-log/releases/tag/v1.0.0)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue)](https://github.com/unra73d/golog/releases/tag/v1.0.0)
 
 A straightforward, leveled logging package for Go applications featuring global and instance-level controls, tagging, and integrated error checking with optional panic behavior.
 
