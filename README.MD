@@ -1,7 +1,7 @@
 # Go Simple Logger
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/unra73d/go-log)](https://goreportcard.com/report/github.com/unra73d/go-log)
-[![GoDoc](https://godoc.org/github.com/your_username/your_repository_name?status.svg)](https://godoc.org/github.com/unra73d/go-log)
+[![GoDoc](https://godoc.org/github.com/unra73d/go-log?status.svg)](https://godoc.org/github.com/unra73d/go-log)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Version](https://img.shields.io/badge/version-1.0.0-blue)](https://github.com/unra73d/go-log/releases/tag/v1.0.0)
 
@@ -35,4 +35,4 @@ The primary goal is to offer a lightweight logging solution that is easy to conf
 ## Installation
 
 ```bash
-go get github.com/unra73d/go-log/log
+go get github.com/unra73d/go-log/logger

@@ -1,8 +1,8 @@
-// Package log provides a simple leveled logging facility with tag support.
+// Package logger provides a simple leveled logging facility with tag support.
 // It allows enabling/disabling logging globally for DEBUG, WARN, and ERROR levels,
 // and also provides per-logger instance control over these levels.
 // The package includes helper functions for checking errors and potentially panicking.
-package log
+package logger
 
 import "fmt"
 
