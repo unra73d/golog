@@ -35,4 +35,4 @@ The primary goal is to offer a lightweight logging solution that is easy to conf
 ## Installation
 
 ```bash
-go get github.com/unra73d/go-log/logger
+go get github.com/unra73d/golog
