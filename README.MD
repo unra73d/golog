@@ -3,7 +3,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/unra73d/golog)](https://goreportcard.com/report/github.com/unra73d/golog)
 [![GoDoc](https://godoc.org/github.com/unra73d/golog?status.svg)](https://godoc.org/github.com/unra73d/golog)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-1.0.2-blue)](https://github.com/unra73d/golog/releases/tag/v1.0.2)
+[![Version](https://img.shields.io/badge/version-1.0.3-blue)](https://github.com/unra73d/golog/releases/tag/v1.0.3)
 
 A straightforward, leveled logging package for Go applications featuring global and instance-level controls, tagging, and integrated error checking with optional panic behavior.
 

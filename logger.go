@@ -52,7 +52,7 @@ func Logger(tag string, d int, w int, e int, timeFormat ...string) *logger {
 // formatMessage formats the message with the logger's tag and timestamp if timeFormat is set.
 func (self *logger) formatMessage() string {
 	if self.timeFormat != "" {
-		return fmt.Sprintf("[%s][%s]", self.tag, time.Now().Format(self.timeFormat))
+		return fmt.Sprintf("[%s][%s]", time.Now().Format(self.timeFormat), self.tag)
 	}
 	return fmt.Sprintf("[%s]", self.tag)
 }
@@ -69,7 +69,7 @@ func (self *logger) D(v ...interface{}) {
 // Arguments are printed space-separated, followed by a newline.
 func D(v ...interface{}) {
 	if DEBUG == 1 {
-		fmt.Println("[DEBUG]", v)
+		fmt.Println("[DBG]", v)
 	}
 }
 
@@ -85,7 +85,7 @@ func (self *logger) W(v ...interface{}) {
 // Arguments are printed space-separated, followed by a newline.
 func W(v ...interface{}) {
 	if WARN == 1 {
-		fmt.Println("[WARN]", v)
+		fmt.Println("[WRN]", v)
 	}
 }
 
