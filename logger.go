@@ -4,7 +4,10 @@
 // The package includes helper functions for checking errors and potentially panicking.
 package logger
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 // DEBUG controls the global enablement of debug level logging.
 // Set to 1 to enable, 0 to disable. Affects log printouts only.
@@ -24,8 +27,9 @@ const ERROR = 1
 
 // logger represents a logging instance with a specific tag and level controls.
 type logger struct {
-	tag     string // Tag prepended to log messages for this logger instance.
-	d, w, e int    // Level enable flags (1 for enabled, 0 for disabled) for Debug, Warn, Error.
+	tag        string // Tag prepended to log messages for this logger instance.
+	d, w, e    int    // Level enable flags (1 for enabled, 0 for disabled) for Debug, Warn, Error.
+	timeFormat string // Time format string for logging timestamps.
 }
 
 // Logger creates and returns a new logger instance.
@@ -34,17 +38,30 @@ type logger struct {
 //   - d: Set to 1 to enable Debug level logging for this instance, 0 to disable.
 //   - w: Set to 1 to enable Warn level logging for this instance, 0 to disable.
 //   - e: Set to 1 to enable Error level logging for this instance, 0 to disable.
+//   - timeFormat: Time format string for logging timestamps. If empty, no timestamp is logged.
 //
 // Note: Global DEBUG, WARN, ERROR flags must also be enabled for messages to be printed.
-func Logger(tag string, d int, w int, e int) *logger {
-	return &logger{tag: tag, d: d, w: w, e: e}
+func Logger(tag string, d int, w int, e int, timeFormat ...string) *logger {
+	tf := ""
+	if len(timeFormat) > 0 {
+		tf = timeFormat[0]
+	}
+	return &logger{tag: tag, d: d, w: w, e: e, timeFormat: tf}
+}
+
+// formatMessage formats the message with the logger's tag and timestamp if timeFormat is set.
+func (self *logger) formatMessage() string {
+	if self.timeFormat != "" {
+		return fmt.Sprintf("[%s][%s]", self.tag, time.Now().Format(self.timeFormat))
+	}
+	return fmt.Sprintf("[%s]", self.tag)
 }
 
 // D logs a debug message if debug logging is enabled for this logger instance
 // and globally. The logger's tag is automatically prepended.
 func (self *logger) D(v ...interface{}) {
 	if self.d == 1 {
-		D(append([]interface{}{fmt.Sprintf("[%s]", self.tag)}, v...)...)
+		D(append([]interface{}{self.formatMessage()}, v...)...)
 	}
 }
 
@@ -60,7 +77,7 @@ func D(v ...interface{}) {
 // and globally. The logger's tag is automatically prepended.
 func (self *logger) W(v ...interface{}) {
 	if self.w == 1 {
-		W(append([]interface{}{fmt.Sprintf("[%s]", self.tag)}, v...)...)
+		W(append([]interface{}{self.formatMessage()}, v...)...)
 	}
 }
 
@@ -76,7 +93,7 @@ func W(v ...interface{}) {
 // and globally. The logger's tag is automatically prepended.
 func (self *logger) E(v ...interface{}) {
 	if self.e == 1 {
-		E(append([]interface{}{fmt.Sprintf("[%s]", self.tag)}, v...)...)
+		E(append([]interface{}{self.formatMessage()}, v...)...)
 	}
 }
 
