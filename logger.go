@@ -136,11 +136,16 @@ func CheckW(err error, v ...interface{}) bool {
 //  2. It then panics with the error `err`.
 //
 // If error logging is disabled for this instance but `err` is non-nil, it still panics.
-func (self *logger) CheckE(err error, v ...interface{}) {
+//
+// finalCall is a function that if exists will be called right before panic, good for some cleanup
+func (self *logger) CheckE(err error, finalCall func(), v ...interface{}) {
 	if err != nil { // Check for error first to ensure panic happens regardless of log level
 		if self.e == 1 && ERROR == 1 { // Check both instance and global flags for logging
 			// Use the global E function to handle the actual print logic
 			E(append([]interface{}{fmt.Sprintf("[%s]", self.tag)}, append(v, err)...)...)
+		}
+		if finalCall != nil {
+			finalCall()
 		}
 		panic(err) // Panic regardless of whether it was logged
 	}
@@ -151,9 +156,14 @@ func (self *logger) CheckE(err error, v ...interface{}) {
 //  1. If global error logging (ERROR constant) is enabled, it logs the error
 //     along with the provided arguments `v`.
 //  2. It then panics with the error `err`.
-func CheckE(err error, v ...interface{}) {
+//
+// finalCall is a function that if exists will be called right before panic, good for some cleanup
+func CheckE(err error, finalCall func(), v ...interface{}) {
 	if err != nil {
 		E(append(v, err)...) // Append err to the message arguments
+		if finalCall != nil {
+			finalCall()
+		}
 		panic(err)
 	}
 }
@@ -166,7 +176,9 @@ func CheckE(err error, v ...interface{}) {
 //
 // If error logging is disabled for this instance but non-nil errors exist, it still panics
 // with the first non-nil error.
-func (self *logger) CheckMultiE(errs []error, v ...interface{}) {
+//
+// finalCall is a function that if exists will be called right before panic, good for some cleanup
+func (self *logger) CheckMultiE(errs []error, finalCall func(), v ...interface{}) {
 	firstErr := findFirstError(errs)
 	if firstErr != nil { // Check for error first
 		if self.e == 1 && ERROR == 1 { // Check both instance and global flags for logging
@@ -179,6 +191,9 @@ func (self *logger) CheckMultiE(errs []error, v ...interface{}) {
 				}
 			}
 		}
+		if finalCall != nil {
+			finalCall()
+		}
 		panic(firstErr) // Panic with the first error found
 	}
 }
@@ -188,7 +203,9 @@ func (self *logger) CheckMultiE(errs []error, v ...interface{}) {
 //  1. If global error logging (ERROR constant) is enabled, it logs each non-nil
 //     error along with the provided arguments `v`.
 //  2. It then panics with the *first* non-nil error encountered in the slice.
-func CheckMultiE(errs []error, v ...interface{}) {
+//
+// finalCall is a function that if exists will be called right before panic, good for some cleanup
+func CheckMultiE(errs []error, finalCall func(), v ...interface{}) {
 	firstErr := findFirstError(errs)
 	if firstErr != nil {
 		if ERROR == 1 {
@@ -198,6 +215,9 @@ func CheckMultiE(errs []error, v ...interface{}) {
 					E(append(v, err)...) // Append err to the message arguments
 				}
 			}
+		}
+		if finalCall != nil {
+			finalCall()
 		}
 		panic(firstErr) // Panic with the first error found
 	}
