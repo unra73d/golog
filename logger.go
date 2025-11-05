@@ -250,7 +250,13 @@ func findFirstError(errs []error) error {
 //
 //	    // Code here won't execute if CheckE panics
 //	}
-func (self *logger) BreakOnError() { BreakOnError() }
+func (self *logger) BreakOnError() {
+	if r := recover(); r != nil {
+		// Attempt to log the recovered value as an error.
+		// This assumes the panic was likely caused by an error passed to CheckE/CheckMultiE.
+		E("Recovered from panic:", r)
+	}
+}
 
 // BreakOnError is the global version of the logger's BreakOnError method.
 // Use with `defer` to recover from panics (typically those from CheckE/CheckMultiE)
